@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin — Gaurav.RTL</title>
+<link rel="stylesheet" href="/styles.css">
+<style>
+  .admin-wrap{ max-width:1040px; margin:0 auto; padding:40px 28px 80px; }
+  .stat-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:28px 0 36px; }
+  .stat{ background:var(--bg-card); border:1px solid var(--line); border-radius:6px; padding:18px 20px; }
+  .stat .n{ font-family:var(--mono); font-size:28px; color:var(--cyan); }
+  .stat .l{ font-family:var(--mono); font-size:11px; color:var(--text-faint); margin-top:4px; letter-spacing:.06em; }
+  table{ width:100%; border-collapse:collapse; font-size:13.5px; }
+  th{ text-align:left; font-family:var(--mono); font-size:11px; color:var(--text-faint); letter-spacing:.06em; padding:10px 12px; border-bottom:1px solid var(--line); }
+  td{ padding:10px 12px; border-bottom:1px solid var(--line-soft); color:var(--text-dim); }
+  tr:hover td{ color:var(--text); }
+  .table-card{ background:var(--bg-card); border:1px solid var(--line); border-radius:6px; overflow:hidden; margin-bottom:32px; }
+  .table-scroll{ overflow-x:auto; }
+  .table-head{ padding:16px 18px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; }
+  .table-head h3{ font-size:14px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="/" class="brand">GAURAV<span class="dot">.</span>RTL</a>
+    <div class="navlinks"><a href="/">Back to site</a></div>
+  </div>
+</nav>
+
+<div id="gate" class="auth-shell">
+  <div class="eyebrow">// admin_access</div>
+  <div class="card" style="margin-top:16px">
+    <h2 style="font-size:22px;margin-bottom:6px">Admin key required</h2>
+    <p class="dim" style="font-size:13.5px;margin-bottom:24px">This page is private.</p>
+    <div id="msg" class="form-msg"></div>
+    <form id="gate-form">
+      <div class="field">
+        <label for="key">Admin key</label>
+        <input id="key" type="password" autocomplete="off" required>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit">// unlock</button>
+    </form>
+  </div>
+</div>
+
+<div id="dashboard" class="admin-wrap hidden">
+  <div class="eyebrow">// admin_dashboard</div>
+  <h2 style="font-size:26px;margin-top:12px">Site activity</h2>
+
+  <div class="stat-row">
+    <div class="stat"><div class="n" id="stat-users">–</div><div class="l">REGISTERED USERS</div></div>
+    <div class="stat"><div class="n" id="stat-visits">–</div><div class="l">TOTAL VISITS</div></div>
+    <div class="stat"><div class="n" id="stat-today">–</div><div class="l">VISITS TODAY</div></div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-head"><h3>Registered users</h3></div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Name</th><th>Email</th><th>Signed up</th></tr></thead>
+        <tbody id="users-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-head"><h3>Recent visits</h3></div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Time</th><th>Page</th><th>Referrer</th><th>Visitor</th><th>IP</th></tr></thead>
+        <tbody id="visits-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const gate = document.getElementById('gate');
+const dashboard = document.getElementById('dashboard');
+const msg = document.getElementById('msg');
+
+async function loadData(key) {
+  const res = await fetch('/api/admin-data', { headers: { 'x-admin-key': key } });
+  if (!res.ok) throw new Error('Invalid admin key');
+  return res.json();
+}
+
+function render(data) {
+  document.getElementById('stat-users').textContent = data.users.length;
+  document.getElementById('stat-visits').textContent = data.visits.length;
+  const today = new Date().toDateString();
+  document.getElementById('stat-today').textContent =
+    data.visits.filter(v => new Date(v.timestamp).toDateString() === today).length;
+
+  document.getElementById('users-body').innerHTML = data.users
+    .sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .map(u => `<tr><td>${escapeHtml(u.name)}</td><td>${escapeHtml(u.email)}</td><td>${new Date(u.createdAt).toLocaleString()}</td></tr>`)
+    .join('') || '<tr><td colspan="3">No users yet.</td></tr>';
+
+  document.getElementById('visits-body').innerHTML = data.visits
+    .sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp))
+    .slice(0, 200)
+    .map(v => `<tr><td>${new Date(v.timestamp).toLocaleString()}</td><td>${escapeHtml(v.path)}</td><td>${escapeHtml(v.referrer || '—')}</td><td>${escapeHtml(v.email || 'anonymous')}</td><td>${escapeHtml(v.ip || '—')}</td></tr>`)
+    .join('') || '<tr><td colspan="5">No visits logged yet.</td></tr>';
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+document.getElementById('gate-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const key = document.getElementById('key').value;
+  msg.className = 'form-msg';
+  try {
+    const data = await loadData(key);
+    sessionStorage.setItem('admin-key', key);
+    gate.classList.add('hidden');
+    dashboard.classList.remove('hidden');
+    render(data);
+  } catch (err) {
+    msg.textContent = err.message;
+    msg.classList.add('show', 'error');
+  }
+});
+
+// auto-unlock if key already present this session
+(async () => {
+  const stored = sessionStorage.getItem('admin-key');
+  if (!stored) return;
+  try {
+    const data = await loadData(stored);
+    gate.classList.add('hidden');
+    dashboard.classList.remove('hidden');
+    render(data);
+  } catch (e) {
+    sessionStorage.removeItem('admin-key');
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaurav — RTL / Digital Design Engineer</title>
+<meta name="description" content="Portfolio of Gaurav, RTL / Digital Design Engineer — Verilog HDL, Physical Design, VLSI.">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  .hero{ padding:90px 0 70px; position:relative; overflow:hidden; }
+  .hero-tags{ display:flex; gap:10px; font-family:var(--mono); font-size:11px; color:var(--text-faint); margin-bottom:26px; }
+  .hero-tags span{ border:1px solid var(--line); padding:4px 10px; border-radius:2px; }
+  .hero h1{ font-size:clamp(34px,5vw,56px); line-height:1.08; font-weight:600; max-width:780px; }
+  .hero h1 .accent{ color:var(--cyan); }
+  .hero-sub{ margin-top:22px; max-width:560px; color:var(--text-dim); font-size:16px; }
+  .hero-cta{ display:flex; gap:14px; margin-top:34px; }
+  .hero-comment{ font-family:var(--mono); font-size:12.5px; color:var(--text-faint); margin-bottom:14px; }
+
+  section{ padding:64px 0; border-top:1px solid var(--line-soft); }
+  .sec-head{ margin-bottom:36px; max-width:640px; }
+  .sec-head h2{ font-size:26px; margin-top:12px; }
+  .sec-head p{ color:var(--text-dim); margin-top:10px; font-size:15px; }
+
+  .about-grid{ display:grid; grid-template-columns:1.4fr 1fr; gap:40px; align-items:start; }
+  .about-grid p{ color:var(--text-dim); margin-bottom:14px; }
+  .facts{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+  .fact{ background:var(--bg-card); padding:16px; }
+  .fact .k{ font-family:var(--mono); font-size:10.5px; color:var(--text-faint); letter-spacing:.08em; }
+  .fact .v{ margin-top:6px; font-size:14px; font-weight:600; }
+
+  .skills-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:18px; }
+  .skill-card h3{ font-size:14px; color:var(--cyan); }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+  .chip{ font-family:var(--mono); font-size:11.5px; border:1px solid var(--line); padding:5px 10px; border-radius:2px; color:var(--text-dim); }
+
+  .proj-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .proj-card .eyebrow{ margin-bottom:14px; }
+  .proj-card h3{ font-size:19px; margin-bottom:10px; }
+  .proj-card p{ color:var(--text-dim); font-size:14.5px; margin-bottom:16px; }
+
+  .cert-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .cert-card{ display:flex; justify-content:space-between; align-items:flex-start; }
+  .cert-card h3{ font-size:16px; margin-bottom:6px; }
+  .badge{ font-family:var(--mono); font-size:10px; color:var(--ok); border:1px solid rgba(111,208,140,0.35); padding:4px 8px; border-radius:2px; white-space:nowrap; }
+
+  .contact-card{ text-align:center; padding:52px 32px; }
+  .contact-card h2{ font-size:28px; margin-top:12px; }
+  .contact-links{ display:flex; gap:14px; justify-content:center; margin-top:28px; flex-wrap:wrap; }
+
+  @media (max-width:800px){
+    .about-grid, .proj-grid, .cert-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="/" class="brand">GAURAV<span class="dot">.</span>RTL</a>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#certifications">Certs</a>
+      <a href="#contact">Contact</a>
+      <span id="nav-auth"></span>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-tags"><span>CLK</span><span>RST</span><span>DATA</span></div>
+    <div class="hero-comment">module top_of_page ( status = fresher, target = vlsi );</div>
+    <h1>Building the logic <span class="accent">that silicon runs on.</span></h1>
+    <p class="hero-sub">I'm Gaurav — an RTL / Digital Design engineer starting out in VLSI, with hands-on grounding in Verilog HDL, physical design fundamentals, and schematic-level circuit work.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn">// view_projects</a>
+      <a href="#contact" class="btn btn-primary">// get_in_touch</a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">01 — About</div>
+      <h2>From schematics to signoff-ready thinking.</h2>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>I completed my <strong>M.E. in Electronics &amp; Communication Engineering</strong> at Chandigarh University in 2024, and I'm now focused on breaking into <strong>RTL / Digital Design</strong> roles in the VLSI industry.</p>
+        <p>My foundation combines <strong>Verilog HDL</strong> design and simulation, <strong>physical design</strong> fundamentals, and hands-on <strong>schematic capture</strong> work in Cadence Virtuoso from my coursework — backed by a habit of precise, well-documented technical work.</p>
+        <p>I'm currently deepening my STA and physical design knowledge, and looking for a fresher role where I can grow into full design-flow ownership.</p>
+      </div>
+      <div class="facts">
+        <div class="fact"><div class="k">DEGREE</div><div class="v">M.E. — ECE</div></div>
+        <div class="fact"><div class="k">UNIVERSITY</div><div class="v">Chandigarh University</div></div>
+        <div class="fact"><div class="k">GRADUATED</div><div class="v">2024</div></div>
+        <div class="fact"><div class="k">TARGETING</div><div class="v">RTL / Digital Design</div></div>
+        <div class="fact" style="grid-column:1/-1"><div class="k">STATUS</div><div class="v">Open to fresher roles</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">02 — Skills</div>
+      <h2>Toolchain &amp; fundamentals</h2>
+      <p>Grouped by where they sit in the design flow — from HDL to layout.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="card skill-card"><h3>HDL &amp; Simulation</h3>
+        <div class="chips"><span class="chip">Verilog HDL</span><span class="chip">RTL Design</span><span class="chip">Xilinx ISE</span><span class="chip">Testbenches</span></div>
+      </div>
+      <div class="card skill-card"><h3>Physical Design</h3>
+        <div class="chips"><span class="chip">PD Fundamentals</span><span class="chip">Floorplanning Concepts</span><span class="chip">STA Basics</span></div>
+      </div>
+      <div class="card skill-card"><h3>Schematic &amp; Layout</h3>
+        <div class="chips"><span class="chip">Cadence Virtuoso</span><span class="chip">Combinational Circuits</span><span class="chip">AutoCAD</span></div>
+      </div>
+      <div class="card skill-card"><h3>Engineering Habits</h3>
+        <div class="chips"><span class="chip">Design Documentation</span><span class="chip">Precision Drafting</span><span class="chip">Debug &amp; Verification Mindset</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">03 — Projects</div>
+      <h2>Verified hands-on work</h2>
+      <p>Two pieces of work I can speak to in depth, end to end.</p>
+    </div>
+    <div class="proj-grid">
+      <div class="card proj-card">
+        <div class="eyebrow" style="font-size:11px">PROJ / 01</div>
+        <h3>4-bit Ripple Carry Adder</h3>
+        <p>Designed and simulated a 4-bit adder in Verilog HDL, verified functional correctness across input combinations, and synthesized the design using Xilinx ISE.</p>
+        <div class="chips"><span class="chip">Verilog HDL</span><span class="chip">Xilinx ISE</span><span class="chip">Functional Verification</span></div>
+      </div>
+      <div class="card proj-card">
+        <div class="eyebrow" style="font-size:11px">PROJ / 02</div>
+        <h3>Combinational Circuit Design</h3>
+        <p>Built combinational logic circuits at the schematic level in Cadence Virtuoso as part of M.E. coursework, focused on gate-level structuring and correctness.</p>
+        <div class="chips"><span class="chip">Cadence Virtuoso</span><span class="chip">Schematic Capture</span><span class="chip">Gate-Level Design</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">04 — Certifications</div>
+      <h2>Maven Silicon</h2>
+      <p>Completed July 2026 · MSUID: 9921084591</p>
+    </div>
+    <div class="cert-grid">
+      <div class="card cert-card"><div><h3>Verilog HDL — Hands On</h3><p class="dim" style="font-size:13px">Maven Silicon</p></div><span class="badge">COMPLETED</span></div>
+      <div class="card cert-card"><div><h3>Foundation — Physical Design</h3><p class="dim" style="font-size:13px">Maven Silicon</p></div><span class="badge">COMPLETED</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="eyebrow center" style="justify-content:center">05 — Contact</div>
+    <div class="card contact-card">
+      <h2>Let's talk RTL.</h2>
+      <p class="dim">Open to fresher opportunities in RTL / Digital Design. Reach out — I'll respond quickly.</p>
+      <div class="contact-links">
+        <a class="btn" href="mailto:sengaurav0987@gmail.com">// email_me</a>
+        <a class="btn" href="https://www.linkedin.com/in/gaurav-sen-91b579216/" target="_blank" rel="noopener">// linkedin</a>
+        <a class="btn" href="https://github.com/Gauravsen0987" target="_blank" rel="noopener">// github</a>
+        <a class="btn" href="tel:+918219191358">// call</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Designed &amp; built for Gaurav — © 2026. Made with Verilog-brain energy.</p>
+    <p id="footer-auth-note"></p>
+  </div>
+</footer>
+
+<script>
+// --- log this visit (fire and forget) ---
+fetch('/api/track-visit', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ path: location.pathname, referrer: document.referrer })
+}).catch(() => {});
+
+// --- reflect login state in the nav ---
+(async () => {
+  try {
+    const res = await fetch('/api/me');
+    const nav = document.getElementById('nav-auth');
+    if (res.ok) {
+      const { name } = await res.json();
+      nav.innerHTML = `<span class="dim">Hi, ${name}</span> &nbsp; <a class="btn" href="/api/logout">Log out</a>`;
+    } else {
+      nav.innerHTML = `<a href="/login.html">Log in</a> <a class="btn btn-primary" href="/signup.html">Sign up</a>`;
+    }
+  } catch (e) {
+    document.getElementById('nav-auth').innerHTML = `<a href="/login.html">Log in</a> <a class="btn btn-primary" href="/signup.html">Sign up</a>`;
+  }
+})();
+</script>
+
+</body>
+</html>

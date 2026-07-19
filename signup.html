@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign up — Gaurav.RTL</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="/" class="brand">GAURAV<span class="dot">.</span>RTL</a>
+    <div class="navlinks"><a href="/">Back to site</a></div>
+  </div>
+</nav>
+
+<div class="auth-shell">
+  <div class="eyebrow">// register</div>
+  <div class="card" style="margin-top:16px">
+    <h2 style="font-size:22px;margin-bottom:6px">Create an account</h2>
+    <p class="dim" style="font-size:13.5px;margin-bottom:24px">Takes a few seconds.</p>
+
+    <div id="msg" class="form-msg"></div>
+
+    <form id="signup-form">
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="new-password" minlength="8" required>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit" id="submit-btn">// create_account</button>
+    </form>
+    <p class="auth-foot">Already have an account? <a href="/login.html">Log in</a></p>
+  </div>
+</div>
+
+<script>
+const form = document.getElementById('signup-form');
+const msg = document.getElementById('msg');
+const btn = document.getElementById('submit-btn');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  msg.className = 'form-msg';
+  btn.disabled = true; btn.textContent = '// creating...';
+
+  const body = {
+    name: document.getElementById('name').value.trim(),
+    email: document.getElementById('email').value.trim().toLowerCase(),
+    password: document.getElementById('password').value
+  };
+
+  try {
+    const res = await fetch('/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Something went wrong');
+
+    msg.textContent = 'Account created. Redirecting...';
+    msg.classList.add('show', 'ok');
+    setTimeout(() => location.href = '/', 700);
+  } catch (err) {
+    msg.textContent = err.message;
+    msg.classList.add('show', 'error');
+    btn.disabled = false; btn.textContent = '// create_account';
+  }
+});
+</script>
+
+</body>
+</html>
